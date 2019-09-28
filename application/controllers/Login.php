@@ -23,8 +23,34 @@ class Login extends REST_Controller {
                 $this->response($dados, 400);
             }
 
+            $this->load->model('LoginModel');
+
             $usuario  = $this->post('usuario', true);
             $senha = $this->post('senha', true);
+
+            $usuario = $this->LoginModel->getUser($usuario);
+            
+            if (is_null($usuario)) {
+                $this->response(
+                    [
+                        'status' => false,
+                        'erro' => 'Usuário inválido'
+                    ]
+                    ,$this::HTTP_UNAUTHORIZED
+                );
+            }
+
+            if (!password_verify($senha, $usuario->senha)) {
+                $this->response(
+                    [
+                        'status' => false,
+                        'erro' => 'Senha incorreta'
+                    ]
+                    ,$this::HTTP_UNAUTHORIZED
+                );
+            }
+            
+            unset($usuario->senha);//remove a senha
 
             $dados = [
                 'usuario' => $usuario
@@ -74,20 +100,6 @@ class Login extends REST_Controller {
         );
         $jwt = JWT::encode($token, $key);
         return $jwt;
-    }
-
-    /**
-     * Encrypta o payload
-     * @param array $data  payload
-     * @return array
-     */
-    private function _encrypty_payload($data)
-    {
-        $this->load->library('encryption');
-
-        return  array_map(function ($item){ 
-                    return $this->encryption->encrypt($item);
-                },$data);
     }
 
 }
