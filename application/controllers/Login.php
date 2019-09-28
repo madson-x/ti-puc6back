@@ -82,7 +82,7 @@ class Login extends REST_Controller {
      * @param int $duracao  tempo em segundos para exipiraÃ§Ã£o
      * @return string
      */
-    private function generanteToken($data, $duracao = NULL)
+    private function generanteToken($data, $duracao = 3600)
     {
         
         $key = $this->config->item('api_key');
