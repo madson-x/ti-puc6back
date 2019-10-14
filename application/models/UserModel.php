@@ -4,8 +4,8 @@ class UserModel extends CI_Model
 {
     public function getUsers() :array
     {
-        return $this->db->select('id, login')
-                ->from('usuarios')
+        return $this->db->select('idpessoa, nome, cpf')
+                ->from('pessoa')
                 ->get()
                 ->result();
     }
