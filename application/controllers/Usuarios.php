@@ -19,7 +19,16 @@ class Usuarios extends MY_Controller {
         } catch(Throwable $e) {
             $this->excecao($e);
         }
+    }
 
+    public function index_post()
+    {
+        try {
+            $this->form_validation->set_rules('id','id','required');
+            $this->form_validation->runValidation();
+        } catch (\Throwable $th) {
+            $this->excecao($th);
+        }
     }
 
 }
