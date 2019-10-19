@@ -11,10 +11,11 @@ class MY_Controller extends REST_Controller
      */
     public $user;
 
+
     public function __construct()
     {
         parent::__construct();
-        $this->_checks();
+        // $this->_checks();
 
     }
 

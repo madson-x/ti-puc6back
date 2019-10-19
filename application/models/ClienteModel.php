@@ -4,14 +4,52 @@ class ClienteModel extends MY_Model
 {
     public function getClientes() : array
     {
-        return $this->db->select()
-                ->from('cliente')
-                ->get()
-                ->result();
+
+        $sql = "SELECT 
+        cliente.idcliente,
+        pessoa.nome,
+        pessoa.cpf,
+        pessoa.nascimento,
+        pessoa.email,
+        pessoa.tel
+        FROM pessoa INNER JOIN cliente ON cliente.pessoa_idpessoa = pessoa.idpessoa
+        ";
+        return $this->db->query($sql)->result();
+
+        // return $this->db->select()
+        //         ->from('pessoa')
+        //         ->join('cliente','cliente.pessoa_idpessoa = pessoa.idpessoa')
+        //         ->get()
+        //         ->result();
     }
 
-    public function cadCliente(array $dados) : int
+
+    public function getCliente(int $id): ?object{
+        $sql = "SELECT 
+        cliente.idcliente,
+        pessoa.nome,
+        pessoa.cpf,
+        pessoa.nascimento,
+        pessoa.email,
+        pessoa.tel
+        FROM pessoa INNER JOIN cliente ON cliente.pessoa_idpessoa = pessoa.idpessoa
+        WHERE cliente.idcliente = ?
+        LIMIT 1
+        ";
+        return $this->db->query($sql, [$id])->row();
+    }
+
+    public function cadCliente(array $pessoa, array $cliente) : int
     {
-        return $this->insert('cliente', $dados);
+        $this->db->trans_start();
+        
+        $id = $this->insert('pessoa',$pessoa);
+
+        $cliente['pessoa_idpessoa'] = $id;
+        $this->insert('cliente', $cliente);
+        
+        $this->db->trans_complete();
+        
+        return $id;
     }
 }
