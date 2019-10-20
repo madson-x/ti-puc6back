@@ -34,7 +34,7 @@ class Cliente extends MY_Controller
         try {
             $this->form_validation->set_data($this->post());         
             $this->form_validation->set_rules('cpf', 'CPF', 'required|exact_length[11]|numeric|is_unique[pessoa.cpf]');
-            $this->form_validation->set_rules('nome', 'Nome', 'required|max_length[45]|alpha');
+            $this->form_validation->set_rules('nome', 'Nome', 'required|max_length[45]|alpha_numeric_spaces');
             $this->form_validation->set_rules('nascimento', 'Data de nascimento', 'required|regex_match[/\d{4}-\d{2}-\d{2}/]');
             $this->form_validation->set_rules('tel', 'Telefone', 'required|min_length[10]|max_length[11]|numeric');
             $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|is_unique[pessoa.email]');
