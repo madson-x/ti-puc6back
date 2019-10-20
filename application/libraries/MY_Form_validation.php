@@ -25,13 +25,6 @@ class MY_Form_validation extends CI_Form_validation
         
     }
 
-    function removeBom($text)
-{
-    $bom = pack('H*','EFBBBF');
-    $text = preg_replace("/^$bom/", '', $text);
-    return $text;
-}
-
     public function jsonErroFormValidation()
     {
        $this->ci =& get_instance();
@@ -39,12 +32,7 @@ class MY_Form_validation extends CI_Form_validation
             'status'=> false,
             'erro' => $this->error_string(false, '<br/>')
         ];
-        $json = json_encode($resposta);
-        $json = $this->removeBom($json);
-        header('Content-Type: application/json');
-        echo $json;
-       // $this->ci->response($resposta, $this->ci::HTTP_BAD_REQUEST);
-        exit;
+       $this->ci->response($resposta, $this->ci::HTTP_BAD_REQUEST);
     }
 
 
