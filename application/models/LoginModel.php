@@ -6,7 +6,7 @@ class LoginModel extends CI_Model
     {
         return $this->db->select()
                 ->from('pessoa')
-                ->where('cpf', $login)
+                ->where('email', $login)
                 ->get()
                 ->row();
     }
