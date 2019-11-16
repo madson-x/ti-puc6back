@@ -39,7 +39,7 @@ class ClienteModel extends MY_Model
         return $this->db->query($sql, [$id])->row();
     }
 
-    public function cadCliente(array $pessoa, array $cliente) : int
+    public function cadCliente(array $pessoa, array $telefone, array $endereco) : int
     {
         $this->db->trans_start();
         
@@ -48,6 +48,12 @@ class ClienteModel extends MY_Model
         $cliente['pessoa_idpessoa'] = $id;
         $this->insert('cliente', $cliente);
         
+        $telefone['pessoa'] = $id;
+        $this->insert('telefone', $telefone);
+
+        $endereco['pessoa'] = $id;
+        $this->insert('endereco', $endereco);
+
         $this->db->trans_complete();
         
         return $id;
