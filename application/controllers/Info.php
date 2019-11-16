@@ -13,8 +13,12 @@ class Info extends MY_Controller {
 
     public function index_get()
     {
-        var_dump($this->user);
-            
+        try {
+            $this->response($this->user);
+        } catch (\Throwable $th) {
+            $this->excecao($th);
+        }
+       
     }
     
 
