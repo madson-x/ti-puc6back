@@ -22,7 +22,7 @@ class MY_Controller extends REST_Controller
     /**
      * verificações antes de continuar
      */
-    private function _checks()
+    protected function checks()
     {
         $payload = $this->_check_token();
         $this->user =  $payload;

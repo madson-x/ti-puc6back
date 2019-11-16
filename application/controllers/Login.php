@@ -11,7 +11,9 @@ class Login extends REST_Controller {
     
     public function index_post()
     {
+        
         try {
+            $this->form_validation->set_data($this->post());         
             $this->form_validation->set_rules('usuario', 'usuario', 'required');
             $this->form_validation->set_rules('senha', 'senha', 'required');
             
