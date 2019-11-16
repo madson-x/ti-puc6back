@@ -15,7 +15,8 @@ class MY_Model extends CI_Model
         if ($this->db->insert($tabela, $dados, true)) {
             return $this->db->insert_id();
         }
-        throw new RuntimeException("Erro ao inserir os dados na tabela $tabela.");
+        $erro = $this->db->error();
+        throw new RuntimeException("Erro ao inserir os dados na tabela $tabela: {$erro['message']}");
     }
 
      /**
