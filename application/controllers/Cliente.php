@@ -50,7 +50,6 @@ class Cliente extends MY_Controller
                 'nome' => $this->post("nome"),
                 'cpf' => $this->post("cpf"),
                 'nascimento' => $this->post("nascimento"),
-                'tel' => $this->post("tel"),
                 'senha' => $senha,
                 'email' => $this->post("email")
             ];
