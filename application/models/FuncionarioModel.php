@@ -7,6 +7,7 @@ class FuncionarioModel extends MY_Model
 
         $sql = "SELECT 
         funcionario.idfuncionario,
+		funcionario.departamento,
         pessoa.nome,
         pessoa.cpf,
         pessoa.nascimento,
@@ -27,6 +28,7 @@ class FuncionarioModel extends MY_Model
     public function getfuncionario(int $id): ?object{
         $sql = "SELECT 
         funcionario.idfuncionario,
+		funcionario.departamento,
         pessoa.nome,
         pessoa.cpf,
         pessoa.nascimento,
@@ -39,7 +41,7 @@ class FuncionarioModel extends MY_Model
         return $this->db->query($sql, [$id])->row();
     }
 
-    public function cadFuncionario(array $pessoa, array $telefone, array $endereco) : int
+    public function cadFuncionario(array $pessoa, array $telefone, array $endereco, array $departamento) : int
     {
         $this->db->trans_start();
         
@@ -53,6 +55,9 @@ class FuncionarioModel extends MY_Model
 
         $endereco['pessoa'] = $id;
         $this->insert('endereco', $endereco);
+		
+		$departamento['funcionario'] = &id;
+		$this->insert('departamento', $departamento);
 
         $this->db->trans_complete();
         
