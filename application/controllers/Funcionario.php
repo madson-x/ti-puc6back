@@ -68,8 +68,10 @@ class funcionario extends MY_Controller
                 'complemento' => $this->post("complemento")
 
             ];
+			
+			$departamento = ['departamento' => $this->post("departamento")];
     
-            $id = $this->funcionarioModel->cadfuncionario($pessoa, $telefone, $endereco);
+            $id = $this->FuncionarioModel->cadfuncionario($pessoa, $telefone, $endereco, $departamento);
             $this->response(['id'=> $id],$this::HTTP_CREATED);
         } catch (\Throwable $th) {
             //throw $th;
