@@ -53,6 +53,7 @@ class funcionario extends MY_Controller
                 'nascimento' => $this->post("nascimento"),
                 'senha' => $senha,
                 'email' => $this->post("email")
+				'departamento' => $this->post("departamento")
             ];
             
             $telefone = [
@@ -69,9 +70,9 @@ class funcionario extends MY_Controller
 
             ];
 			
-			$departamento = ['departamento' => $this->post("departamento")];
+			
     
-            $id = $this->FuncionarioModel->cadFuncionario($pessoa, $telefone, $endereco, $departamento);
+            $id = $this->FuncionarioModel->cadFuncionario($pessoa, $telefone, $endereco);
             $this->response(['id'=> $id],$this::HTTP_CREATED);
         } catch (\Throwable $th) {
             //throw $th;
