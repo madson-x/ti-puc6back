@@ -28,7 +28,7 @@ class Funcionario extends MY_Controller
         }
         
     }
-
+ 
     public function index_post()
     {
         try {
